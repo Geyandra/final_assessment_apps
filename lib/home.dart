@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
       child: RefreshIndicator(
         onRefresh: () async {
           controlInput.clear();
-          return context.read<CountingBloc>().add(refresh());
+          return context.read<CountingBloc>().add(const refresh());
         },
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -33,7 +33,8 @@ class Home extends StatelessWidget {
                   try {
                     input = int.parse(controlInput.text);
                   } catch (e) {
-                    context.read<CountingBloc>().add(CountingEvent.refresh());
+                    input = 0;
+                    context.read<CountingBloc>().add(const CountingEvent.refresh());
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: const Text("value should integer"),
                       duration: const Duration(seconds: 5),
@@ -111,7 +112,6 @@ class Home extends StatelessWidget {
             ),
             BlocBuilder<CountingBloc, CountingState>(
               builder: (context, state) {
-                print(state);
                 if (state is loadedState) {
                   return SizedBox(
                       width: MediaQuery.of(context).size.width,

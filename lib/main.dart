@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       create: (context) => CountingBloc(),
       child: MaterialApp(
         theme: ThemeData(
+          textTheme: Typography.blackHelsinki,
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,

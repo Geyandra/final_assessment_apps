@@ -20,16 +20,15 @@ class CountingBloc extends Bloc<CountingEvent, CountingState> {
     emit(const CountingState.initial());
   }
 
-  void _onButtonOne(buttonOne event, Emitter<CountingState> emit) {
+  void _onButtonOne(buttonOne event, Emitter<CountingState> emit) async{
     data.clear();
     for (var i = 0; i < event.input; i++) {
       data.add((i + 1).toString());
     }
-    result = data.join(", ").replaceAll(",", "");
-    emit(CountingState.loaded(result));
+    await _onResult(emit);
   }
 
-  void _onButtonTwo(buttonTwo event, Emitter<CountingState> emit) {
+  void _onButtonTwo(buttonTwo event, Emitter<CountingState> emit) async{
     data.clear();
 
     int loop = event.input * 2 - 1;
@@ -43,11 +42,10 @@ class CountingBloc extends Bloc<CountingEvent, CountingState> {
         data.add(((i + 1)).toString());
       }
     }
-    result = data.join(", ").replaceAll(",", "");
-    emit(CountingState.loaded(result));
+    await _onResult(emit);
   }
 
-  void _onButtonThree(buttonThree event, Emitter<CountingState> emit) {
+  void _onButtonThree(buttonThree event, Emitter<CountingState> emit) async{
     data.clear();
 
     int value = 10;
@@ -56,11 +54,10 @@ class CountingBloc extends Bloc<CountingEvent, CountingState> {
       data.add(value.toString());
       value = value + 11;
     }
-    result = data.join(", ").replaceAll(",", "");
-    emit(CountingState.loaded(result));
+    await _onResult(emit);
   }
 
-  void _onButtonFour(buttonFour event, Emitter<CountingState> emit) {
+  void _onButtonFour(buttonFour event, Emitter<CountingState> emit) async{
     data.clear();
 
     for (var i = 0; i < event.input; i++) {
@@ -72,6 +69,10 @@ class CountingBloc extends Bloc<CountingEvent, CountingState> {
         data.add((i + 1).toString());
       }
     }
+    await _onResult(emit);
+  }
+
+  _onResult(Emitter<CountingState> emit){
     result = data.join(", ").replaceAll(",", "");
     emit(CountingState.loaded(result));
   }
